@@ -1,0 +1,40 @@
+<%- include header %>
+<div class="col-md-9">
+<br />
+<div class="table-responsive" data-example-id="hoverable-table">
+    <table class="table table-condensed table-hover">
+        <thead >
+            <th>#</th>
+            <th>id</th>
+            <th>accountName</th>
+            <th>Password</th>
+            <th>email</th>
+            <th>accountType</th>
+            <th>state</th>
+            <th>Created</th>
+            <th>Updated<th></th>
+        </thead>
+
+        <tbody>
+        <% if (rows) { %>
+        <% rows.forEach(function (row) { %>
+        <div>
+            <tr>
+                <th>#</th>
+                <th><%- row.id.slice(0,4)+'...' %></th>
+                <th><%- row.accountName %></th>
+                <th><%- row.Password %></th>
+                <th><%- row.email %></th>
+                <th><%- row.accountType %></th>
+                <th><%- row.state %></th>
+                <th><%- row.Created.toString().slice(4, 15) %></th>
+                <th><%- row.Updated.toString().slice(16, 25) %></th>
+            </tr>
+        </div>
+        <% }) %>
+        <% } %>
+        </tbody>
+    </table>
+</div>
+    </div>
+<%- include footer%>

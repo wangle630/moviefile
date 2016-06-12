@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$.ajax Demo</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery.js"></script>
+</head>
+<body>
+<input type="text" id="keyword" value="这时对那时错.Right.Now,Wrong.Then.720p.FIX字幕侠.mkv.td"/>
+
+<button class="btn btn-primary  btn-sm" onclick="test();">TEST</button>
+<button class="btn btn-primary  btn-sm" onclick="testOther();">param</button>
+
+<form id="frm">
+    a: <input type="text" name="a" value="1"/><br/>
+    b: <input type="text" name="b" value="true"/><br/>
+    c: <input type="radio" name="c" value="x" checked/>x
+    <input type="radio" name="c" value="y"/>y<br/>
+    d: <input type="checkbox" name="d" value="1" checked/>1
+    <input type="checkbox" name="d" value="2" checked/>2
+    <input type="checkbox" name="d" value="3"/>3
+</form>
+
+
+<button class="btn btn-primary  btn-sm" onclick="unicode();">unicode转义</button>
+<button class="btn btn-primary  btn-sm" onclick="dbMovie();">豆瓣Json</button>
+
+
+<script>
+
+
+    function dbMovie1() {
+        $.getJSON('http://api.douban.com/v2/movie/subject/5327268?callback=?', {q: '功夫'}, function (data) {
+            console.log(data.summary);
+        });
+    }
+
+
+    function dbMovie() {
+        $.ajax('http://api.douban.com/v2/movie/search?q=功夫', {
+            dataType: 'jsonp'
+        }).done(function (data) {
+
+            for (var i = 0; i < data.subjects.length; i++) {
+                console.log(data.subjects[i].alt)
+            }
+        });
+    }
+
+    function dbMovie3() {
+        $.ajax('http://api.douban.com/v2/movie/search', {
+            q: '功夫',
+            dataType: 'jsonp',
+            jsonp: 'cbname',
+            jsonpCallback: 'cbfun',
+            cache: true,
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+
+    function dbMovie2() {
+        $.ajax('http://api.douban.com/v2/movie/subject/5327268', {
+            type: 'OPTION'
+        }).done(function (data) {
+            alert("done 1");
+        }).fail(function (e) {
+            console.log(e)
+        }).always(function () {
+            console.log("always ...")
+        });
+    }
+
+
+    function unicode() {
+
+        str = "\u8352\u91ce\u730e\u4eba"
+
+        str = eval("'" + str + "'");
+        alert(str)
+
+    }
+    function toUnicode(str) {
+        var temp,
+                i = 0,
+                r = '',
+                len = str.length;
+
+        for (; i < len; i++) {
+            temp = str.charCodeAt(i).toString(16);
+
+            while (temp.length < 4)
+                temp = '0' + temp;
+
+            r += '＼＼u' + temp;
+        }
+        ;
+
+        return r;
+    }
+
+
+    //    $.ajaxSetup({
+    ////        cache :false,
+    //        headers:{apikey:'7e68c0b7a3b7afb0b9d0287a8d5d4235',
+    //        }
+    //    })
+    var requests = {};
+
+
+    //    $.ajaxPrefilter(function (options, originOptions, jqXHR) {
+    ////        options.headers = { apikey : '7e68c0b7a3b7afb0b9d0287a8d5d4235'};
+    //        if (requests[options.url]) {
+    //            requests[options.url].abort();
+    //        }
+    //        requests[options.url] = jqXHR;
+    //    });
+    //
+    //    $(document).ajaxSuccess(globalEventHandler);
+    //    $(document).ajaxError(globalEventHandler);
+    //    $(document).ajaxComplete(globalEventHandler);
+    //    $(document).ajaxStart(globalEventHandler);
+    //    $(document).ajaxStop(globalEventHandler);
+    //    $(document).ajaxSend(globalEventHandler);
+
+    function globalEventHandler(event) {
+        console.log(event.type);
+        console.log(arguments);
+    }
+
+
+    function test() {
+        // basicUsage();
+
+        // testData();
+        // testSettings();
+//        testBeforeSend();
+        // testConverter();
+        var keyword = encodeURI(document.getElementById('keyword').value);
+
+        var url = 'http://apis.baidu.com/apistore/pullword/words?source=' + keyword + '&param1=0&param2=1';
+
+        console.log(url);
+        deferredUsage(url);
+//        callbacksUsage(url);
+    }
+
+
+    function basicUsage() {
+        $.ajax('/test', {
+            success: function () {
+                alert('ok');
+            }
+        });
+
+        $.ajax({
+            url: '/test', success: function () {
+                alert('ok2');
+            }
+        });
+    }
+
+    function deferredUsage(url) {
+        $.ajax(url, {
+            type: 'GET'
+        }).done(function (data) {
+            console.log('deferred' + data)
+        }).always(function () {
+            console.log('always......')
+        }).fail(function () {
+
+        })
+    }
+
+
+    function callbacksUsage(url) {
+        $.ajax(url, {
+
+            TYPE: 'GET',
+
+            success: function (data) {      //data 返回的值
+                console.log(arguments);      //实际上支持的参数有三个，一共返回了哪些参数。
+                //data,"success",Object(jqXHR)
+                console.log(data)
+            },
+
+
+            error: function (jqXHR, textStatus, err) {
+                // jqXHR: jQuery增强的xhr         包含了xhr所有内容，响应的文本、状态码等
+                // textStatus: 请求完成状态        error状态
+                // err: 底层通过throw抛出的异常对象，类型与值与错误类型有关
+                console.log(arguments);
+                //Object,"error","Internal Server Error"(错误对象)
+            },
+
+//            complete: function (jqXHR, textStatus) {
+//                // jqXHR: jQuery增强的xhr
+//                // textStatus: 请求完成状态 success | error
+//                console.log('statusCode: %d, statusText: %s', jqXHR.status, jqXHR.statusText);
+//                console.log('textStatus: %s', textStatus);
+//                //statusCode:200 , statusText:OK
+//                //textStatus:success
+//            },
+
+            statusCode: {
+                '403': function (jqXHR, textStatus, err) {
+                    console.log(arguments);
+                    console.log('status code 403');
+                },
+                '400': function () {
+                    console.log('status code 400');
+                }
+            }
+        });
+    }
+
+    function testData() {
+        $.ajax('/user/allusers', {
+            success: function (data) {
+                console.log(data);
+            },
+
+            dataType: 'json',
+            dataFilter: function (data, type) {
+                console.log(data);
+                console.log(type);
+                var tmp = JSON.parse(data);
+                return tmp.length;
+            }
+        });
+    }
+
+    function testSettings() {
+        var d = 0;
+        $.ajax('/time', {
+            cache: false,
+            async: false,
+            ifModified: true,
+            success: function (data) {
+                alert('success: ' + data);
+                d = data;
+            }
+        });
+        // alert('after ajax: ' + d);
+    }
+
+
+    function testOther() {
+        // $.param(obj, [traditional]);
+        console.log($.param({x: 1, y: 'ok', z: ['a', 'b']}, true));
+        console.log($("#frm").serialize());
+        //对表单进行操作
+
+        var obj = $("#frm").serializeArray();
+        console.log(obj);
+        console.log(JSON.stringify(obj));
+        console.log($.param(JSON.stringify(obj)));
+    }
+
+
+    function testBeforeSend() {
+        $.ajax('/user/allusers', {
+            // headers:　{test: 'lll', ttt: '33'},
+            beforeSend: function (jqXHR, settings) {
+                console.log(arguments);
+                console.log('beforeSend');
+                jqXHR.setRequestHeader('test', 'haha');
+                jqXHR.testData = {a: 1, b: 2};
+            },
+            success: function (data) {
+                console.log(data);
+            },
+
+            complete: function (xhr) {
+                console.log(xhr);
+                console.log(xhr.testData);
+            }
+
+
+        })
+    }
+
+</script>
+</body>
+</html>

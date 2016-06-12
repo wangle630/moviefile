@@ -1,0 +1,54 @@
+<html>
+<body>
+
+<script type="text/javascript">
+
+    var arr = new Array(6);
+    arr[0] = {id:1, name:'exg'};
+    arr[1] = {id:2, name:'aaa'};
+    arr[2] = {id:3, name:'bbb'};
+    arr[3] = {id:4, name:'edde'};
+    arr[4] = {id:5, name:'eee'};
+    arr[5] = {id:6, name:'fff'};
+
+    var existArr = new Array(2);
+    existArr[0] = {id:1, name:'exg'};
+    existArr[1] = {id:2, name:'ddd'};
+    existArr[2] = {id:3, name:'bbb'};
+    existArr[3] = {id:4, name:'ccc'};
+    existArr[4] = {id:5, name:'eee'};
+    existArr[5] = {id:6, name:'fff'};
+    existArr[6] = {id:7, name:'fff'};
+    existArr[7] = {id:8, name:'fff'};
+
+
+
+    for (var i=0; i<arr.length; i++) {
+        for (var j=0; j<existArr.length; j++) {
+            if (arr[i] && (arr[i].name == existArr[j].name)) {
+                document.write(arr[i].id + '     ' + arr[i].name + '<br/>');
+
+                arr.splice(i, 1);
+
+
+            }
+        }
+    }
+
+    /*  
+     arr.splice(2,1);
+     */
+    document.write(arr.length)
+
+    document.write('<br />移除重复元素后<br/>');
+    for (var i=0; i<arr.length; i++) {
+        document.write(arr[i].id + '     ' + arr[i].name + '<br/>');
+    }
+
+    document.write('数组长度: ' + arr.length + '<br/>');
+
+
+</script>
+
+</body>
+</html>  

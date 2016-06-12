@@ -1,0 +1,18 @@
+<%- include header %>
+<div class="col-md-9">
+    <% posts.forEach(function (post, index) { %>
+    <div class="well">
+        <h5 class="pull-right">
+            作者：<a href="/u/<%= post.name %>"><%= post.name %></a> |
+            日期：<%= post.time.minute %>
+        </h5>
+        <h4><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h4></p>
+        <p><%- post.post %></p>
+        <% if (post.comments && post.pv) { %>
+        <p class="info">阅读：<%= post.pv %> ｜ 评论：<%= post.comments.length %></p>
+        <% } %>
+    </div>
+    <% }) %>
+    <%- include paging %>
+</div>
+<%- include footer %>

@@ -1,0 +1,72 @@
+[Tue Apr 19 2016 10:10:54 GMT+0800 (CST)]/api/doubancommit
+Error: request entity too large
+    at readStream (/Users/Ler/moviefile/node_modules/body-parser/node_modules/raw-body/index.js:196:17)
+    at getRawBody (/Users/Ler/moviefile/node_modules/body-parser/node_modules/raw-body/index.js:106:12)
+    at read (/Users/Ler/moviefile/node_modules/body-parser/lib/read.js:68:3)
+    at urlencodedParser (/Users/Ler/moviefile/node_modules/body-parser/lib/types/urlencoded.js:109:5)
+    at Layer.handle [as handle_request] (/Users/Ler/moviefile/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:312:13)
+    at /Users/Ler/moviefile/node_modules/express/lib/router/index.js:280:7
+    at Function.process_params (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:330:12)
+    at next (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:271:10)
+    at jsonParser (/Users/Ler/moviefile/node_modules/body-parser/lib/types/json.js:107:37)
+    at Layer.handle [as handle_request] (/Users/Ler/moviefile/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:312:13)
+    at /Users/Ler/moviefile/node_modules/express/lib/router/index.js:280:7
+    at Function.process_params (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:330:12)
+    at next (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:271:10)
+    at logger (/Users/Ler/moviefile/node_modules/morgan/index.js:144:5)
+[Tue Apr 19 2016 10:12:10 GMT+0800 (CST)]/api/doubancommit
+Error: request entity too large
+    at readStream (/Users/Ler/moviefile/node_modules/body-parser/node_modules/raw-body/index.js:196:17)
+    at getRawBody (/Users/Ler/moviefile/node_modules/body-parser/node_modules/raw-body/index.js:106:12)
+    at read (/Users/Ler/moviefile/node_modules/body-parser/lib/read.js:68:3)
+    at urlencodedParser (/Users/Ler/moviefile/node_modules/body-parser/lib/types/urlencoded.js:109:5)
+    at Layer.handle [as handle_request] (/Users/Ler/moviefile/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:312:13)
+    at /Users/Ler/moviefile/node_modules/express/lib/router/index.js:280:7
+    at Function.process_params (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:330:12)
+    at next (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:271:10)
+    at jsonParser (/Users/Ler/moviefile/node_modules/body-parser/lib/types/json.js:107:37)
+    at Layer.handle [as handle_request] (/Users/Ler/moviefile/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:312:13)
+    at /Users/Ler/moviefile/node_modules/express/lib/router/index.js:280:7
+    at Function.process_params (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:330:12)
+    at next (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:271:10)
+    at logger (/Users/Ler/moviefile/node_modules/morgan/index.js:144:5)
+[Tue Apr 19 2016 10:12:17 GMT+0800 (CST)]/api/doubancommit
+Error: request entity too large
+    at readStream (/Users/Ler/moviefile/node_modules/body-parser/node_modules/raw-body/index.js:196:17)
+    at getRawBody (/Users/Ler/moviefile/node_modules/body-parser/node_modules/raw-body/index.js:106:12)
+    at read (/Users/Ler/moviefile/node_modules/body-parser/lib/read.js:68:3)
+    at urlencodedParser (/Users/Ler/moviefile/node_modules/body-parser/lib/types/urlencoded.js:109:5)
+    at Layer.handle [as handle_request] (/Users/Ler/moviefile/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:312:13)
+    at /Users/Ler/moviefile/node_modules/express/lib/router/index.js:280:7
+    at Function.process_params (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:330:12)
+    at next (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:271:10)
+    at jsonParser (/Users/Ler/moviefile/node_modules/body-parser/lib/types/json.js:107:37)
+    at Layer.handle [as handle_request] (/Users/Ler/moviefile/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:312:13)
+    at /Users/Ler/moviefile/node_modules/express/lib/router/index.js:280:7
+    at Function.process_params (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:330:12)
+    at next (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:271:10)
+    at logger (/Users/Ler/moviefile/node_modules/morgan/index.js:144:5)
+[Tue Apr 19 2016 10:13:35 GMT+0800 (CST)]/api/doubancommit
+Error: request entity too large
+    at readStream (/Users/Ler/moviefile/node_modules/body-parser/node_modules/raw-body/index.js:196:17)
+    at getRawBody (/Users/Ler/moviefile/node_modules/body-parser/node_modules/raw-body/index.js:106:12)
+    at read (/Users/Ler/moviefile/node_modules/body-parser/lib/read.js:68:3)
+    at urlencodedParser (/Users/Ler/moviefile/node_modules/body-parser/lib/types/urlencoded.js:109:5)
+    at Layer.handle [as handle_request] (/Users/Ler/moviefile/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:312:13)
+    at /Users/Ler/moviefile/node_modules/express/lib/router/index.js:280:7
+    at Function.process_params (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:330:12)
+    at next (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:271:10)
+    at jsonParser (/Users/Ler/moviefile/node_modules/body-parser/lib/types/json.js:107:37)
+    at Layer.handle [as handle_request] (/Users/Ler/moviefile/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:312:13)
+    at /Users/Ler/moviefile/node_modules/express/lib/router/index.js:280:7
+    at Function.process_params (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:330:12)
+    at next (/Users/Ler/moviefile/node_modules/express/lib/router/index.js:271:10)
+    at logger (/Users/Ler/moviefile/node_modules/morgan/index.js:144:5)

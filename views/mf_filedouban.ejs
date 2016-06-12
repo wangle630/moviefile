@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>文件MD5电影</title>
+
+    <!-- 文件MD5文件 -->
+    <script src="js/spark-md5.min.js"></script>
+
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
+    <!--<link rel="stylesheet" href="css/templatemo_main.css">-->
+
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/main.css" rel="stylesheet">
+    <link href="assets/css/font-style.css" rel="stylesheet">
+    <link href="assets/css/flexslider.css" rel="stylesheet">
+
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">-->
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <!--<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>-->
+    <script src="js/jquery.js"></script>
+    <script src="js/getFileInfo.js"></script>
+    <script src="js/getOmdbInfo.js"></script>
+    <script src="js/getDoubanInfo.js"></script>
+    <script src="js/showFileInfo.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <!--<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <!--<script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>-->
+    <!--<script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>-->
+    <!--<![endif]&ndash;&gt;-->
+    <style>
+        body {
+            padding-top: 20px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .start {
+            padding: 40px 15px;
+        }
+    </style>
+
+
+</head>
+<body>
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                本地电影文件信息
+            </a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</nav>
+
+
+<div class="container start">
+
+    <div class="col-md-12">
+        <row>
+
+
+            <div id="drop_area" class=" col-md-6  alert alert-block alert-success pagination-centered "
+                 style="height: auto">
+                将图片拖拽到此区域
+            </div>
+
+
+            <div class="col-md-6 col-sm-12">
+                <div class="panel panel-default half-unit" style="height: auto">
+                    <div class="panel-heading">选择本地文件</div>
+                    <div class="panel-body">
+                        <form method="POST" enctype="multipart/form-data" onsubmit="return false;">
+                            <input id=file class="btn" type=file placeholder="select a file"/>
+                            <br/>
+                            <button class="btn btn-success" onclick="getShortFileID()">shortFileID</button>
+                            <button class="btn btn-success" onclick="getYouKuData()">YouKu</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </row>
+
+
+
+
+        <div class="col-md-7 col-sm-6">
+            <div class="panel panel-primary dash-unit" style="height:auto">
+                <div class="panel-heading">文件基本信息</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <h5>文件基本信息</h5>
+                        <div class="col-md-4 col-xs-12 margin-bottom-9">
+                            <label class="control-label">文件名称</label>
+                            <input type="text" class="form-control" id="txtFileName"  >
+                        </div>
+                        <div class="col-md-2 col-xs-6 margin-bottom-9">
+                            <label class="control-label">文件类型</label>
+                            <input type="text" class="form-control" id="txtFileType"  >
+                        </div>
+                        <div class="col-md-2 col-xs-6 margin-bottom-9">
+                            <label class="control-label">文件大小</label>
+                            <input type="text" class="form-control" id="txtFileSize"  >
+                        </div>
+                        <div class="col-md-2 col-xs-6 margin-bottom-9">
+                            <label class="control-label">分辨率</label>
+                            <input type="text" class="form-control" id="txtFileResolution"  >
+                        </div>
+                        <div class="col-md-2 col-xs-6 margin-bottom-9">
+                            <label class="control-label">格式</label>
+                            <input type="text" class="form-control" id="txtFileFormat"  >
+                        </div>
+                        <div class="col-md-2 col-xs-6 margin-bottom-9">
+                            <label class="control-label">影片类型</label>
+                            <input type="text" class="form-control" id="txtMovieType"  >
+                        </div>
+                        <div class="col-md-2 col-xs-6 margin-bottom-9">
+                            <label class="control-label">字幕类型</label>
+                            <input type="text" class="form-control" id="txtSubtitleType"  >
+                        </div>
+
+
+
+
+
+                        <div class="col-md-6 margin-bottom-9">
+                            <label class="control-label">简单文件ID</label>
+                            <input type="text" class="form-control" id="txtShortFileID"  >
+                        </div>
+
+
+
+                        <div class="col-md-6 margin-bottom-9">
+                            <label class="control-label">完整文件ID</label>
+                            <input type="text" class="form-control" id="txtLongFileID"  >
+                        </div>
+
+                    <div class="row">
+                    <button id=btn class="col-md-2 margin-bottom-9 btn btn-success btn-sm" onclick="saveFile()">
+                        保存电影文件
+                    </button>
+                    </div>
+                    </div>
+
+                    <div class="row">
+                        <h5>豆瓣</h5>
+                        <div class="col-md-2 margin-bottom-9">
+                            <label class="control-label">豆瓣ID</label>
+                            <input type="text" class="form-control" id="txtDouBanID" >
+                        </div>
+                        <div class="col-md-2 margin-bottom-9">
+                            <label class="control-label">豆瓣评分</label>
+                            <input type="text" class="form-control" id="txtDouBanRate" >
+                        </div>
+
+                        <div class="col-md-2 margin-bottom-9">
+                            <label class="control-label">原始名称</label>
+                            <input type="text" class="form-control" id="txtOriginalTitle" >
+                        </div>
+                        <button id=btn class="col-md-2 margin-bottom-9 btn btn-success btn-sm" onclick="saveDoubanDetail()">
+                            豆瓣电影数据
+                        </button>
+                        <button id=btn class="col-md-2 margin-bottom-9 btn btn-success btn-sm" onclick="getDoubanComments()">
+                            豆瓣评论数据
+                        </button>
+                    </div>
+
+                    <div class="row">
+                        <h5>OMDB</h5>
+                        <div class="col-md-3 margin-bottom-9">
+                            <label class="control-label">omdb_ID</label>
+                            <input type="text" class="form-control" id="txtOmdb_ID">
+                        </div>
+
+                        <div class="col-md-2 margin-bottom-9">
+                            <label class="control-label">imdbID</label>
+                            <input type="text" class="form-control" id="txtImadbID">
+                        </div>
+                        <div class="col-md-2 margin-bottom-9">
+                            <label class="control-label">omdb评分</label>
+                            <input type="text" class="form-control" id="txtOmdbRate">
+                        </div>
+                        <div class="col-md-2 margin-bottom-9">
+                            <label class="control-label">omdb评级</label>
+                            <input type="text" class="form-control" id="txtOmdbRated">
+                        </div>
+                        <button id=btn class="col-md-2 margin-bottom-9 btn btn-success btn-sm" onclick="saveOmdbDetail()">
+                            保存omdb数据
+                        </button>
+                    </div>
+
+                    <div class="row">
+                        <h5>tomato</h5>
+                        <div class="col-md-3 margin-bottom-9">
+                            <label class="control-label">tomatoURL</label>
+                            <input type="text" class="form-control" id="txtTomatoURL">
+                        </div>
+
+                        <div class="col-md-2 margin-bottom-9">
+                            <label class="control-label">tomatoRate</label>
+                            <input type="text" class="form-control" id="txtTomatoRate">
+                        </div>
+                        <div class="col-md-2 margin-bottom-9">
+                            <label class="control-label">tomatoUserRate</label>
+                            <input type="text" class="form-control" id="txtTomatoUserRate">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-5">
+
+        <div class="col-md-12 col-sm-12">
+            <div class="panel panel-warning dash-unit" style="height: auto;">
+                <div class="panel-heading">分词结果</div>
+                <div class="panel-body">
+                    <row>
+                        <div class="col-md-12">
+                            <input type="text" class="col-md-5" id="mlibiao" value="">
+                            <button id=btn class="col-md-3 btn btn-primary btn-xs" onclick="getDoubanListByManual()">
+                                豆瓣列表
+                            </button>
+                            <button id=btn class="col-md-3 col-md-offset-1 btn btn-primary btn-xs"
+                                    onclick="getFenciByManual()">
+                                分词
+                            </button>
+                            <button id=btn class="col-md-3 col-md-offset-1 btn btn-primary btn-xs"
+                                    onclick="douban_save()">
+                                保存豆瓣数据
+                            </button>
+                            <button id=btn class="col-md-3 col-md-offset-1 btn btn-primary btn-xs"
+                                    onclick="testdate()">
+                                日期比较
+                            </button>
+                            <hr/>
+                        </div>
+                    </row>
+                    <row>
+                        <div id="fenciResult">
+                        </div>
+                    </row>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12">
+            <div class="panel panel-danger dash-unit" style="height: auto;">
+                <div class="panel-heading">豆瓣筛选</div>
+                <div id="dblist" class="panel-body" style="background: bottom">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">豆瓣短评论</div>
+
+                <div class="panel-body">
+                    <div class="col-md-12 col-xs-12 margin-bottom-9">
+                        <label class="control-label">优酷URL</label>
+                        <input type="text" class="form-control" id="txtYoukuURL"  >
+
+                    <button id=btn class=" btn btn-success" onclick="getYouKuData()">
+                        获取优酷信息
+                    </button>
+
+                    </div>
+                    <div id="showyouku">
+
+                        </div>
+                </div>
+                <div id="youkuplayer" class ="col-md-12"></div>
+
+
+            </div>
+        </div>
+
+    </div>
+    <div class="panel-body" style="height: 630px">
+        <textarea id="frontConsole" style="height: 300px"></textarea>
+    </div>
+
+    <div class="col-md-7">
+
+
+
+
+
+    </div>
+</div>
+
+
+</body>
+
+<script type="text/javascript" src="http://player.youku.com/jsapi"></script>
+<script>
+    //豆瓣基本数据
+    var gDOUBANDATA = {}
+    //豆瓣短评论数据
+    var gDOUBANCOMMIT = []
+    //omdb基本数据
+    var gOMDBDATA = {}
+    //文件基本信息
+    var gFILE = {}
+    //优酷基本信息
+    var gYOUKUDATA = {}
+
+
+    $(function () {
+        //阻止浏览器默认行。
+        $(document).on({
+            dragleave: function (e) {		//拖离
+                e.preventDefault();
+            },
+            drop: function (e) {			//拖后放
+                e.preventDefault();
+            },
+            dragenter: function (e) {		//拖进
+                e.preventDefault();
+            },
+            dragover: function (e) {		//拖来拖去
+                e.preventDefault();
+            }
+        });
+        var box = document.getElementById('drop_area'); //拖拽区域
+        box.addEventListener("drop", function (e) {
+            e.preventDefault(); //取消默认浏览器拖拽效果
+            var fileList = e.dataTransfer.files; //获取文件对象
+            //检测是否是拖拽文件到页面的操作
+            if (fileList.length == 0) {
+                return false;
+            }
+            getShortFileID(fileList[0])
+            getLongFileID(fileList[0])
+            showFileInfo(fileList[0])
+            fileFenciByBaidu(fileList[0])
+            fielFenciByDot(fileList[0])
+
+        }, false);
+    });
+    //    全局过滤器    删除重复的Ajax
+//    var requests = {};
+//    $.ajaxPrefilter(function (options, originOptions, jqXHR) {
+//        if (requests[options.url]) {
+//            requests[options.url].abort();
+//            console.log('abort')
+//        }
+//        requests[options.url] = jqXHR;
+//    });
+
+    document.getElementById('drop_area').onclick = function () {
+        document.getElementById('file').click();
+
+        return false;
+    };
+    //选择文件触发事件
+    $('#file').bind('change', function () {
+        file = document.getElementById("file").files[0]
+        getShortFileID(file);
+        getLongFileID(file);
+        showFileInfo(file);
+        fileFenciByBaidu(file.name)
+        fielFenciByDot(file.name)
+    });
+
+    //手动取得豆瓣列表
+    function getDoubanListByManual() {
+        getDouBanMovieList($('#mlibiao').val())
+    }
+
+
+    function testdate(){
+        var date = new Date('2016-4-19' )
+             console.log(date > $.now() )
+    }
+
+    function saveAllMovieList(doubanList) {
+        $('#frontConsole').append('------------------------------' + '\r\n')
+        var doubanLenght = doubanList.length
+        for (i = 0; i < doubanLenght; i++) {
+            saveAllMovieDetail(doubanList[i])
+        }
+    }
+
+    //保存豆瓣电影信息，并保存omdbData数据
+    function saveAllMovieDetail(doubanID) {
+        var url = '/api/doubansave/' + doubanID;
+        if (doubanID) {
+            getDoubanDetail(doubanID, function (doubanData) {
+                $.post('/api/doubansave', doubanData, function (data) {
+                    console.log(data);
+                    $('#frontConsole').append(data + '\r\n')
+                    getOmdbDetail(doubanData, function (omdbData) {
+                        if (omdbData) {
+                            $.post('/api/omdbsave', omdbData, function (data) {
+                                console.log(data);
+                                $('#frontConsole').append(data + '\r\n')
+                            });
+                        }
+                    })
+                });
+
+            })
+        }
+    }
+
+    function saveDoubanDetail(){
+        if(gDOUBANDATA.id){
+            $.post('/api/doubansave', gDOUBANDATA, function (data) {
+                alert(data);
+            });
+        }else{
+            alert('无豆瓣数据！')
+        }
+    }
+
+
+
+    function saveFile(){
+        gFILE.OriginalTitle = $("#txtOriginalTitle").val();
+        gFILE.fFileName = $("#txtFileName").val();
+        gFILE.fMovieType = $("#txtMovieType").val();
+        gFILE.fFileResolution = $("#txtFileResolution").val();
+        gFILE.fFileFormat = $("#txtFileFormat").val();
+        gFILE.fFileType = $("#txtFileType").val();
+        gFILE.fFileSize = $("#txtFileSize").val();
+        gFILE.fSubtitleType = $("#txtSubtitleType").val();
+        gFILE.fShortFileID = $("#txtShortFileID").val();
+        gFILE.fLongFileID = $("#txtLongFileID").val();
+        gFILE.doubanID = $("#txtDouBanID").val();
+        gFILE.imdbID = $("#txtImadbID").val();
+        gFILE.update = $.now()
+
+
+
+        if( (gFILE.fShortFileID.length > 0) && ( gFILE.doubanID.length > 0 ) ){
+                $.post('/api/filesave', gFILE, function (data) {
+                    alert(data);
+                });
+            } else {
+                alert('缺少  文件ID 或 doubanID！')
+
+        }
+
+    }
+
+
+    function saveOmdbDetail(){
+        if(gOMDBDATA.imdbID){
+            $.post('/api/omdbsave', gOMDBDATA, function (data) {
+                alert(data);
+            });
+        }else{
+            alert('无omdb数据！')
+        }
+
+    }
+
+    function saveDoubanCommits(){
+        if(gDOUBANCOMMIT.length > 0){
+
+            $.ajax({
+                type: 'post',
+                url: '/api/doubancommit',
+                data: {
+                    doubanCommits: gDOUBANCOMMIT,
+                },
+                success: function (res) {
+                    alert(res)
+                },
+                error: function (err) {
+                    alert(err)
+                }
+            });
+
+        }else{
+            alert('无评论数据数据！')
+        }
+    }
+
+
+
+
+
+
+    function showMachMovie(doubanID) {
+        getDoubanDetail(doubanID, function (doubanData) {
+            showDoubanDetail(doubanData);
+            getOmdbDetail(doubanData, function (omdbData) {
+                showOmdbDetail(omdbData);
+            })
+        })
+    }
+
+    //分词无结果，手动输入电影名称
+    function getFenciByManual() {
+        fileFenciByBaidu($('#mlibiao').val())
+        fielFenciByDot($('#mlibiao').val())
+    }
+
+    http://v.youku.com/v_show/id_XMTU0NjY5MTA1Ng==.html?f=26967199
+
+    function getYouKuData() {
+
+        var youkuurl = $("#txtYoukuURL").val();
+
+        if(youkuurl.length > 0){
+
+            $('#showyouku').html('')
+
+            var arr1 = youkuurl.split("id_");
+            var arr2 = arr1[1].split("==");
+
+
+            var youkuid = arr2[0]
+
+                    var url = 'http://openapi.youku.com/v2/videos/show_basic.json?video_id='+youkuid+'&client_id=cf13550a4889b891'
+                    $.ajax(url, {
+                        dataType: 'jsonp'
+                    }).done(function (data) {
+                        gYOUKUDATA = data
+                        if(gDOUBANDATA.id){
+                            gYOUKUDATA.doubanid = gDOUBANDATA.id
+                            gYOUKUDATA.update = $.now()
+                        }
+
+
+                        $('#showyouku').append('id:' + data.id + '</br>')
+                        $('#showyouku').append('title:' + data.title + '</br>')
+                        $('#showyouku').append('user:' + data.user.name + '</br>')
+                        $('#showyouku').append('view_count:' + data.view_count + '</br>')
+                        $('#showyouku').append('豆瓣ID:' + data.doubanid + '</br>')
+                        $('#showyouku').append('<img src = "' + data.thumbnail + '"></img>' + '</br>')
+                        $('#showyouku').append('<img src = "' + data.thumbnail_v2 + '"></img>' + '</br>')
+
+                        playyouku(youkuid);
+
+                        console.log(gYOUKUDATA)
+                    }).fail(function () {
+                        alert('查找失败');
+                    });
+
+        } else{
+            alert('地址为空！！！')
+        }
+
+
+
+
+    }
+
+    function playyouku(youkuid){
+        player = new YKU.Player('youkuplayer',{
+            styleid: '0',
+            client_id: 'ec19ebab48d5902c',
+            vid: youkuid
+        });
+    }
+
+</script>
+
+</html>
